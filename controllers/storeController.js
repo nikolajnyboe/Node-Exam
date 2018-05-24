@@ -3,8 +3,7 @@ const Store = mongoose.model('Store');
 const Weather = require('../handlers/weather');
 
 exports.addStore = async (req, res) => {
-  const weather = await Weather.get();
-  res.render('editStore', {title: 'Add Store', weather});
+  res.render('editStore', {title: 'Add Store'});
 };
 
 exports.createStore = async (req, res) => {

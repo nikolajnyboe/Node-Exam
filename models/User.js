@@ -23,7 +23,7 @@ const userSchema = new Schema({
   phone: {
     type: Number,
     trim: true,
-    required: 'Please fill out phone no.'
+    required: false
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date

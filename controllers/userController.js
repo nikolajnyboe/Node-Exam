@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const promisify = require('es6-promisify');
-const Weather = require('../handlers/weather');
 
 exports.loginForm = async (req, res) => {
-  const weather = await Weather.get();
-  res.render('login', {title: 'Login', weather});
+  res.render('login', {title: 'Login'});
 };
 
 exports.registerForm = async (req, res) => {
-  const weather = await Weather.get();
-  res.render('register', {title: 'Register', weather});
+  res.render('register', {title: 'Register'});
 };
 
 // Validation mittleware
@@ -45,8 +42,7 @@ exports.register = async (req, res, next) => {
 };
 
 exports.account = async (req, res) => {
-  const weather = await Weather.get();
-  res.render('account', {title: 'Edit Your Account', weather});
+  res.render('account', {title: 'Edit Your Account'});
 };
 
 exports.updateAccount = async (req, res) => {
