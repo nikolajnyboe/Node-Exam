@@ -5,11 +5,11 @@ const htmlToText = require('html-to-text');
 const promisify = require('es6-promisify');
 
 const transport = nodemailer.createTransport({
-  host: "smtp.mailgun.org",
-  port: 25,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   auth: {
-    user: "postmaster@mg.nyboe.co",
-    pass: "6f10c16da6775ccd82c3edf3ca253fae-115fe3a6-1834cdb2"
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
   }
 });
 
