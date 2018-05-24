@@ -47,12 +47,13 @@ exports.forgot = async (req, res) => { //send password reset link to user
     resetURL,
     filename: 'password-reset'
   });
-  /* const message = 'Password reset link: ' + resetURL;
+  const message = 'Password reset link: ' + resetURL;
   if (user.phone) {
     await sms.send(user.phone, message);
     req.flash('success', `An email and a SMS has been sent with a password reset link.`);
-  } else { */
-  req.flash('success', `An email has been sent with a password reset link.`);
+  } else {
+    req.flash('success', `An email has been sent with a password reset link.`);
+  }
 
   res.redirect('/login');
 };
