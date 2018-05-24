@@ -1,0 +1,31 @@
+extends layout
+
+include mixins/_chatForm
+
+block content
+  .inner
+    h2= title
+    p (Do not work with sockets right now, it will at the presentation)
+    +chatForm()
+    #messages.form
+      h2 Messages:
+
+block scripts
+  script(src="/dist/App.bundle.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js")
+  script.
+    var socket = io();
+    socket.on( 'clientMessage', function(jData) {
+        console.log('received message', jData);
+        messages.insertAdjacentHTML('beforeend', '<p>'+jData.name+': '+jData.message+'</p>');
+    });
+
+    sendData.addEventListener('click', function() {
+        var message = {}
+        message.name = nameInput.value
+        message.message = messageInput.value;
+
+        socket.emit('buttonClick', message);
+        console.log('sent message', message);
+        messages.insertAdjacentHTML('beforeend', '<p>'+message.name+': '+message.message+'</p>');
+    });

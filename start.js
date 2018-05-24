@@ -15,6 +15,11 @@ require('./models/User');
 
 // Start app
 const app = require('./app');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+require('./handlers/websocket')(io);
+
 app.set('port', process.env.PORT || 7777);
 const server = app.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);

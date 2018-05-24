@@ -4,6 +4,7 @@ const {catchErrors} = require('../handlers/errorHandlers');
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const chatController = require('../controllers/chatController');
 
 // routes go here
 router.get('/', catchErrors(storeController.getStores));
@@ -36,5 +37,7 @@ router.post('/account/forgot', catchErrors(authController.forgot));
 
 router.get('/account/reset/:token', catchErrors(authController.reset));
 router.post('/account/reset/:token', authController.confirmedPasswords, catchErrors(authController.updatePassword));
+
+router.get('/chat', chatController.start);
 
 module.exports = router;
