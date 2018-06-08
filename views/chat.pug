@@ -5,7 +5,6 @@ include mixins/_chatForm
 block content
   .inner
     h2= title
-    p (Do not work with sockets right now, it will at the presentation)
     +chatForm()
     #messages.form
       h2 Messages:
@@ -27,5 +26,4 @@ block scripts
 
         socket.emit('buttonClick', message);
         console.log('sent message', message);
-        messages.insertAdjacentHTML('beforeend', '<p>'+message.name+': '+message.message+'</p>');
     });
