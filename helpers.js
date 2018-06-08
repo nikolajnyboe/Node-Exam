@@ -10,5 +10,5 @@ exports.siteName = `Store Front`;
 exports.menu = [
   { slug: '/stores', title: 'Stores', icon: 'store', },
   { slug: '/add', title: 'Add', icon: 'add', },
-  { slug: '/chat', title: 'Chat', icon: 'pencil', }
+  { slug: '/chat', title: 'Chat', icon: 'chat', }
 ];
