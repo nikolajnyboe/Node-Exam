@@ -13,7 +13,8 @@ const storeSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  tags: [String]
+  tags: [String],
+  photo: String
 });
 
 storeSchema.pre('save', function(next) {
