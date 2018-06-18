@@ -14,9 +14,9 @@ block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js")
   script.
     var socket = io();
-    socket.on( 'clientMessage', function(jData) {
-        console.log('received message', jData);
-        messages.insertAdjacentHTML('beforeend', '<p>'+jData.name+': '+jData.message+'</p>');
+    socket.on( 'clientMessage', function(data) {
+        console.log('received message', data);
+        messages.insertAdjacentHTML('beforeend', '<p>'+data.name+': '+data.message+'</p>');
     });
 
     sendData.addEventListener('click', function() {
@@ -24,6 +24,12 @@ block scripts
         message.name = nameInput.value
         message.message = messageInput.value;
 
-        socket.emit('buttonClick', message);
-        console.log('sent message', message);
+        if (!message.name || !message.message) {
+          let error = '<p>Error: no name or message</p>';
+          errors.innerHTML = error;
+        } else {
+          errors.removeChild(errors.firstChild);
+          socket.emit('buttonClick', message);
+          console.log('sent message', message);
+        }
     });
