@@ -41,7 +41,7 @@ exports.resize = async (req, res, next) => {
 exports.createStore = async (req, res) => {
   const store = await (new Store(req.body)).save();
   req.flash('success', `Successfully created ${store.name}!`);
-  res.redirect(`/store/${store.slug}`);
+  res.redirect(`/stores/${store._id}`);
 };
 
 exports.getStores = async (req, res) => {
@@ -65,6 +65,12 @@ exports.updateStore = async (req, res) => {
     new: true, // return the updated store
     runValidators: true
   }).exec();
-  req.flash('success', `Successfully updated ${store.name}! <a href="/stores/${store.slug}">View store</a>`);
+  req.flash('success', `Successfully updated ${store.name}! <a href="/stores/${store._id}">View store</a>`);
   res.redirect(`/stores/${store._id}/edit`);
 };
+
+exports.getStoreById = async (req, res, next) => {
+  const store = await Store.findOne({_id: req.params.id});
+  if (!store) return next();
+  res.render('store', {title: store.name, store});
+}

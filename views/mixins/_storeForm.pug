@@ -5,11 +5,12 @@ mixin storeForm(store = {})
     label(for="description") Description
     textarea(name="description")= store.description
     label(for="photo") Photo
-    input(type="file", name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
     if store.photo
-      img(src=`/uploads/${store.photo}`, alt=store.name width=200)
+      img(src=`/uploads/${store.photo}` alt=store.name width=200)
+    input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
     - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegan', 'Licensed']
     - const tags = store.tags || []
+    label Tags
     ul.tags
       each choice in choices
         .tag.tag__choice

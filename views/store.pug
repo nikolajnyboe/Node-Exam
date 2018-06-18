@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .single
+    .single__hero
+      img.single__image(src=`/uploads/${store.photo || 'store.png'}`)
+      h2.title.title--single
+        a(href=`/stores/${store._id}`) #{store.name}
+  .single__details.inner
+    p= store.description
+    if store.tags
+      ul.tags
+        each tag in store.tags
+          li.tag
+            a.tag__link
+              span.tag__text #{tag}
