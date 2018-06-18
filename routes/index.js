@@ -27,7 +27,7 @@ router.post('/add/:id',
 );
 
 router.get('/stores/:id', catchErrors(storeController.getStoreById));
-router.get('/stores/:id/edit', catchErrors(storeController.editStore));
+router.get('/stores/:id/edit', authController.isLoggedIn, catchErrors(storeController.editStore));
 
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
@@ -49,6 +49,6 @@ router.post('/account/forgot', catchErrors(authController.forgot));
 router.get('/account/reset/:token', catchErrors(authController.reset));
 router.post('/account/reset/:token', authController.confirmedPasswords, catchErrors(authController.updatePassword));
 
-router.get('/chat', chatController.start);
+router.get('/chat', authController.isLoggedIn, chatController.start);
 
 module.exports = router;

@@ -3,7 +3,7 @@ mixin chatForm()
   .form
     h2 Write a message
     label Name
-    input(type="text", id="nameInput")
+    input(type="text", id="nameInput" value=user.name)
     label Message
-    input(type="text", id="messageInput")
+    input(type="text", id="messageInput" autofocus)
     input.button(type="button", value="Send", id="sendData")
