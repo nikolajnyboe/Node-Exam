@@ -6,7 +6,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const chatController = require('../controllers/chatController');
 
-// routes go here
+// routes
 router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', catchErrors(storeController.getStores));
 

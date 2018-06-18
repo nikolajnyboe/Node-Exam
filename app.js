@@ -16,10 +16,8 @@ require('./handlers/passport');
 
 const app = express();
 
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
-app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
+app.set('views', path.join(__dirname, 'views')); // pug files folder
+app.set('view engine', 'pug'); // setup pug
 
 // serves static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -41,7 +39,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-// handle logins
+// logins
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -67,10 +65,8 @@ app.use(errorHandlers.notFound);
 app.use(errorHandlers.flashValidationErrors);
 
 if (app.get('env') === 'development') {
-  //Prints stack trace
   app.use(errorHandlers.developmentErrors);
 }
-
 app.use(errorHandlers.productionErrors);
 
 module.exports = app;

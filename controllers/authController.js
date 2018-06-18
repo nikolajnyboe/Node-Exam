@@ -29,7 +29,7 @@ exports.isLoggedIn = (req, res, next) => {
 };
 
 exports.forgot = async (req, res) => { //send password reset link to user
-  //is there a user?
+  //if user
   const user = await User.findOne({email: req.body.email});
   if (!user) {
     req.flash('error', 'No user with that email');
@@ -47,8 +47,8 @@ exports.forgot = async (req, res) => { //send password reset link to user
     resetURL,
     filename: 'password-reset'
   });
-  const message = 'Password reset link: ' + resetURL;
   if (user.phone) {
+    const message = 'Password reset link: ' + resetURL;
     await sms.send(user.phone, message);
     req.flash('success', `An email and a SMS has been sent with a password reset link.`);
   } else {

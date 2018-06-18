@@ -1,28 +1,26 @@
-//Catch Errors Handler
+// Catch Errors
 exports.catchErrors = (fn) => {
   return function(req, res, next) {
     return fn(req, res, next).catch(next);
   };
 };
 
-//If we hit a route that is not found
+// route not found
 exports.notFound = (req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 };
 
-//MongoDB Validation Error Handler
+//MongoDB validation
 exports.flashValidationErrors = (err, req, res, next) => {
   if (!err.errors) return next(err);
-  // validation errors look like
   const errorKeys = Object.keys(err.errors);
   errorKeys.forEach(key => req.flash('error', err.errors[key].message));
   res.redirect('back');
 };
 
-
-//Development Error Handler
+//Dev errors
 exports.developmentErrors = (err, req, res, next) => {
   err.stack = err.stack || '';
   const errorDetails = {
@@ -32,15 +30,14 @@ exports.developmentErrors = (err, req, res, next) => {
   };
   res.status(err.status || 500);
   res.format({
-    // Based on the `Accept` http header
     'text/html': () => {
       res.render('error', errorDetails);
-    }, // Form Submit, Reload the page
-    'application/json': () => res.json(errorDetails) // Ajax call, send JSON back
+    },
+    'application/json': () => res.json(errorDetails)
   });
 };
 
-//Production Error Handler
+//Production errors
 exports.productionErrors = (err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error', {

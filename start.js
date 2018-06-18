@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // import variables.env file
 require('dotenv').config({ path: 'variables.env' });
 
-// Connect to our Database
+// Connect to database
 mongoose.connect(process.env.DATABASE);
 mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 mongoose.connection.on('error', (err) => {
