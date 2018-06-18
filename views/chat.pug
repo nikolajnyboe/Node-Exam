@@ -13,23 +13,28 @@ block scripts
   script(src="/dist/App.bundle.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js")
   script.
-    var socket = io();
-    socket.on( 'clientMessage', function(data) {
-        console.log('received message', data);
-        messages.insertAdjacentHTML('beforeend', '<p>'+data.name+': '+data.message+'</p>');
+    const socket = io();
+    socket.on('clientMessage', function(data) {
+      console.log('received message', data);
+      let message = document.createElement('p');
+      message.innerText = `${data.name}: ${data.message}`;
+      messages.appendChild(message);
     });
 
     sendData.addEventListener('click', function() {
-        var message = {}
-        message.name = nameInput.value
-        message.message = messageInput.value;
+      let message = {};
+      message.name = nameInput.value;
+      message.message = messageInput.value;
 
-        if (!message.name || !message.message) {
-          let error = '<p>Error: no name or message</p>';
-          errors.innerHTML = error;
-        } else {
+      if (!message.name || !message.message) {
+        let error = document.createElement('p');
+        error.innerText = 'Error: no name or message';
+        errors.appendChild(error);
+      } else {
+        if (errors.firstChild) {
           errors.removeChild(errors.firstChild);
-          socket.emit('buttonClick', message);
-          console.log('sent message', message);
         }
+        socket.emit('message', message);
+        console.log('sent message', message);
+      }
     });
